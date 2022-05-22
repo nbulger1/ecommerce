@@ -3,6 +3,7 @@ const { Category, Product } = require("../../models");
 
 // The `/api/categories` endpoint
 
+//when at the api/categories path pull all of the categories as well as their associated products
 router.get("/", async (req, res) => {
   try {
     const categoryData = await Category.findAll({
@@ -14,6 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+// at api/categories/:id find the category based on the primary key and include the associated product data
 router.get("/:id", async (req, res) => {
   try {
     const categoryData = await Category.findByPk(req.params.id, {
@@ -31,6 +33,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// at api/categories if req.body is provided then create that product
 router.post("/", async (req, res) => {
   try {
     const categoryData = await Category.create(req.body);
@@ -40,6 +43,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+// at api/categories/id based on the req.body is provided then update the product information
 router.put("/:id", async (req, res) => {
   try {
     const categoryData = await Category.update(req.body, {
@@ -57,6 +61,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// at api/categories/id based on the id provided destroy the associated product
 router.delete("/:id", async (req, res) => {
   try {
     const categoryData = await Category.destroy({

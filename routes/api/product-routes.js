@@ -3,25 +3,31 @@ const { Product, Category, Tag, ProductTag } = require("../../models");
 
 // The `/api/products` endpoint
 
-// get all products
+// at api/products get all products with their associated tag and category data
 router.get("/", async (req, res) => {
   try {
     const productData = await Product.findAll({
-      include: [{ model: Tag, as: "product_to_tag" }],
+      include: [
+        {
+          model: Tag,
+          as: "product_to_tag",
+        },
+        {
+          model: Category,
+        },
+      ],
     });
     res.status(200).json(productData);
   } catch (err) {
     res.status(500).json(err);
   }
-  // find all products
-  // be sure to include its associated Category and Tag data
 });
 
-// get one product
+// at api/products/:id get the specified product with its associated tag and category data
 router.get("/:id", async (req, res) => {
   try {
     const productData = await Product.findByPk(req.params.id, {
-      include: [{ model: Tag, as: "product_to_tag" }],
+      include: [{ model: Tag, as: "product_to_tag" }, { model: Category }],
     });
 
     if (!productData) {
@@ -33,11 +39,9 @@ router.get("/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-  // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
 });
 
-// create new product
+// at api/product use the req.body provided to create a new product
 router.post("/", async (req, res) => {
   /* req.body should look like this...
     {
@@ -69,7 +73,7 @@ router.post("/", async (req, res) => {
     });
 });
 
-// update product
+// at api/product/id use the req.body provided to update a the product with the given id
 router.put("/:id", async (req, res) => {
   // update product data
   Product.update(req.body, {
@@ -111,6 +115,7 @@ router.put("/:id", async (req, res) => {
     });
 });
 
+// at api/product/id destroy the product with the given id
 router.delete("/:id", async (req, res) => {
   // delete one product by its `id` value
   try {
