@@ -57,4 +57,4 @@ This project is protected under the MIT License.
 
 ## Link
 
-See the following for a link to the walkthrough video: https://youtu.be/fBqYM-844ec
+See the following for a link to the walkthrough video: https://youtu.be/Ld3w8GRdM44
